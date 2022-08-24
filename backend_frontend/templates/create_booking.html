@@ -1,0 +1,146 @@
+{% extends "home.html" %}
+{% block head %}
+<link 
+    rel="stylesheet" 
+    type="text/css" 
+    href="{{ url_for('static', filename='Create_booking.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    crossorigin="anonymous"
+  />
+{% endblock %}
+{% block content %}
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <a href=# class="navbar-brand">Hotel<b>Ace</b></a>  	
+    <div class="container-fluid">
+      <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="navbarCollapse" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="nav-item">
+            <a href="{{ url_for('home') }}" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('guest') }}" class="nav-link">Guest</a>
+          </li>
+          <li class="nav-item active">
+            <a href="{{ url_for('employee') }}" class="nav-link">Employee</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+</nav> 
+<div class="buttons">    
+  <a href="{{url_for('read_information')}}">
+    <button class="button button3">Read reservation</button>
+  </a>
+</div>
+  <div class="head">
+    <h4>Guest's Reservation Form</h4>
+  </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-20">
+          <form action="http://127.0.0.1:9000/employee/booking" method="POST">
+            <div class="form-group row">
+                <div class="col-sm-5">
+                  <label for="start_time">Check-in Date</label>
+                  <input type="date" id="start_time" name="start_time" value="{{request.args.get['start_time']}}"required>
+                </div>
+                <div class="col-sm-5">
+                  <label for="end_time">Check-out Date</label>
+                  <input type="date" id="end_time" name="end_time" value="{{request.args.get['end_time']}}" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-5">
+                  <label for="adults">Adults</label>
+                  <input type="number" id="adults" name="adults" placeholder="2" min="1" value="{{request.args.get['adults']}}" required>
+                </div>
+                <div class="col-sm-5">
+                  <label for="children">Children</label>
+                  <input type="number" id="children" name="children" placeholder="2" min="0" value="{{request.args.get['children']}}" required>
+                </div>
+            </div>
+            <div class="form-check row">
+                <div class="col-sm-5">
+                  <input class="form-check-input" type="checkbox" id="Checkbox1" value="Yes" name="parking_space">
+                  <label class="form-check-label" for="Checkbox1">Parking Space</label>
+                </div>
+                <div class="col-sm-5">
+                  <input class="form-check-input" type="checkbox" id="Checkbox2" value="Yes" name="breakfast_included">
+                  <label class="form-check-label" for="Checkbox2">Breakfast Included</label>
+                </div>
+                <div class="col-sm-5">
+                  <input class="form-check-input" type="checkbox" id="Checkbox3" value="Yes" name="swimming_pool">
+                  <label class="form-check-label" for="Checkbox3">Swimming Pool</label>
+                </div>
+                <div class="col-sm-5">
+                  <input class="form-check-input" type="checkbox" id="Checkbox4" value="Yes" name="wellness_spa">
+                  <label class="form-check-label" for="Checkbox4">Wellness & Spa</label>
+                </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-5">
+                <label for="requirement">Requirement</label>
+                <select name="requirement" value="{{request.args.get['requirement']}}">
+                  <option value="No Preference">No Preference</option>
+                  <option value="Non Smoking">Non Smoking</option>
+                  <option value="Smoking">Smoking</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-5">
+                <label for="requests">Requests</label></p>
+                <textarea id="requests" name="requests" rows="4" cols="50" value="{{request.args.get['requests']}}"></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-5">
+              <label for="booking_status">Reservation status</label>
+                <select id="booking_status" name="booking_status" value="{{request.args.get['booking_status']}}" required>
+                  <option value="PENDING" default >PENDING</option>
+                  <option value="CONFIRMED">CONFIRMED</option>
+                  <option value="CANCELLED">CANCELLED</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-5">
+                <p>Date<br><i><span id='date-time'></span></i></p>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Confirm booking</button>
+          </form>
+        </div>
+      </div>
+    </div>
+      
+  <script>
+    var reservation = new Date();
+    document.getElementById('date-time').innerHTML=reservation;
+  </script>
+  <table class="table table-bordered table-dark">
+    <thead class="thead-dark">
+      {% for key, value in request.args.items() %}
+      <tr>
+        <th> {{key}} </th>
+        <td> {{value}} </td>
+      </tr>
+    </thead>
+      {% endfor %}
+  </table>
+  <div class="button_previous"></div>
+    <a href="{{url_for('create_information')}}" class="previous">&laquo; Information</a>
+  </div>
+{% endblock %}

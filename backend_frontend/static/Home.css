@@ -1,0 +1,25 @@
+*:not(body) {
+    font-family: 'Source Sans Pro', sans-serif;
+    letter-spacing: 2px;
+}
+
+body {
+    background-image: url('../static/pics/hotel3.jpg');
+    background-size: cover;
+    font-family: 'Montserrat';
+}
+
+h1 {
+    font-size: 40px;
+    font-family:'Trebuchet MS';
+    text-align: center;
+    padding-top: 300px;
+    padding-right: 200px;
+    color:  #1B1212;
+    font-style: italic;
+    text-shadow: 2px 2px #1B1212;
+}
+  
+.navbar.navbar-expand-sm.bg-dark.navbar-dark {
+    height: 50px;
+}

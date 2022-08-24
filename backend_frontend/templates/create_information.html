@@ -1,0 +1,118 @@
+{% extends "home.html" %}
+{% block head %}
+  <link 
+    rel="stylesheet" 
+    type="text/css" 
+    href="{{ url_for('static', filename='Create_information.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    crossorigin="anonymous"
+  />
+{% endblock %}
+{% block content %}
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <a href=# class="navbar-brand">Hotel<b>Ace</b></a>  	
+    <div class="container-fluid">
+      <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="navbarCollapse" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="nav-item">
+            <a href="{{ url_for('home') }}" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('guest') }}" class="nav-link">Guest</a>
+          </li>
+          <li class="nav-item active">
+            <a href="{{ url_for('employee') }}" class="nav-link">Employee</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav> 
+    <div class="buttons">    
+      <a href="{{url_for('read_information')}}">
+        <button class="button button3">Read reservation</button>
+      </a>
+    </div>
+    <div class="head2">
+      <h4>Guest's personal information form</h4>
+    </div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-20">
+      <form action="http://127.0.0.1:9000/employee/info" method="POST">
+        <div class="form-group row">
+          <div class="col-sm-5">
+            <label for="name">Guest's name</label>
+            <input type="name" class="form-control" id="name" placeholder="Bob" name="customer_name" value="{{request.args.get['customer_name']}}" required>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-5">
+            <label for="surname">Guest's surname</label>
+            <input type="surname" class="form-control" id="surname" placeholder="Marley" name="surname" value="{{request.args.get['surname']}}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-5">
+            <label for="email">Guest's email address</label>
+            <input type="email" class="form-control" id="email" placeholder="bob.marley@gmail.com" name="email" value="{{request.args.get['email']}}">
+          </div>
+          <div class="col-sm-5">
+            <label for="phone">Guest's phone number</label><br>
+            <input type="tel" id="phone" name="phone_number" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="{{request.args.get['phone_number']}}">
+          </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-5">
+              <label for="address">Guest's address</label><br>
+              <input type="street-address" id="address" placeholder="Round Street 123" name="address" value="{{request.args.get['address']}}">
+            </div>
+            <div class="col-sm-5">
+              <label for="city">City</label><br>
+              <input type="city" id="city" placeholder="Pula" name="city" value="{{request.args.get['city']}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-5">
+              <label for="postcode">Post code</label><br>
+              <input type="postal-code" id="postcode" placeholder="52100" name="postcode" value="{{request.args.get['postcode']}}">
+            </div>
+          <div class="col-sm-5">
+            <label for="country">Country name</label><br>
+            <input type="country-name" id="country" placeholder="Republic of Croatia" name="country" value="{{request.args.get['country']}}">
+          </div>
+          <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+    </div>
+  </div>
+</div>
+  <table class="table table-bordered table-dark">
+    <thead class="thead-dark">
+      {% for key, value in request.args.items() %}
+      <tr>
+        <th> {{key}} </th>
+        <td> {{value}} </td>
+      </tr>
+    </thead>
+      {% endfor %}
+  </table>
+  <script>
+    function SubmitForm() {
+      document.getElementById("Submit").submit();
+    }
+  </script>
+  <span class="button_next">
+    <a href="{{url_for('create_booking')}}" class="next">Booking &raquo;</a>
+  </span>
+{% endblock %}

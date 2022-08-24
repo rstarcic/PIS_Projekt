@@ -1,0 +1,90 @@
+{% extends "home.html" %}
+{% block head %}
+  <link 
+  rel="stylesheet" 
+  href="{{ url_for('static', filename='Guest_information.css') }}" 
+  />
+  <link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+  crossorigin="anonymous"
+/>
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+  crossorigin="anonymous"
+/>
+{% endblock %}
+{% block content %}
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a href=# class="navbar-brand">Hotel<b>Ace</b></a>  	
+  <div class="container-fluid">
+    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navbarCollapse" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="nav-item">
+          <a href="{{ url_for('home') }}" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item active">
+          <a href="{{ url_for('guest') }}" class="nav-link">Guest</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('employee') }}" class="nav-link">Employee</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="head">
+  <h4>Update guest personal information</h4>
+</div>
+<div class="container">
+  <form method="POST" action="http://127.0.0.1:9000/employee/info/{{guest.id}}" id="Submit">
+
+    <label for="name">Your name</label>
+    <input type="name" class="form-control" id="name" name="customer_name" value="{{guest.customer_name}}" required>
+        
+    <label for="surname">Your surname</label>
+    <input type="surname" class="form-control" id="surname" name="surname" value="{{guest.surname}}" required>
+           
+    <label for="email">Your email address</label>
+    <input type="email" class="form-control" id="email" name="email" value="{{guest.email}}" required><br>
+
+    <label for="phone">Your phone number</label><br>
+    <input type="tel" id="phone" name="phone_number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="{{guest.phone_number}}" required><br>
+        
+    <label for="address">Address</label><br>
+    <input type="street-address" id="address" name="address" value="{{guest.address}}" required><br>
+
+    <label for="city">City</label><br>
+    <input type="city" id="city" name="city" value="{{guest.city}}" required><br>
+          
+    <label for="postcode">Post code</label><br>
+    <input type="postal-code" id="postcode" name="postcode" value="{{guest.postcode}}"><br>
+            
+    <label for="countryName">Country name</label><br>
+    <input type="country-name" id="countryName" name="country" value="{{guest.country}}" required><br>
+         
+    <button onclick="SubmitForm()" class="btn btn-primary btn-lg active" type="submit">Save</button>
+  </form>
+</div>
+  <table class="table table-borderless table-dark">
+    <thead class="thead-dark">
+      {% for key, value in request.form.items() %}
+      <tr>
+        <th> {{key}} </th>
+        <td> {{value}} </td>
+      </tr>
+    </thead>
+      {% endfor %}
+  </table>
+  <script>
+    function SubmitForm() {
+      document.getElementById("Submit").submit();
+    }
+  </script>
+  {% endblock %}
+

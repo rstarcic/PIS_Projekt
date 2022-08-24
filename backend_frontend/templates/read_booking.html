@@ -1,0 +1,92 @@
+{% extends "home.html" %}
+{% block head %}
+<link 
+  rel="stylesheet" 
+  type="text/css" 
+  href="{{ url_for('static', filename='Read_booking.css') }}"
+/>
+<link
+rel="stylesheet"
+href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+crossorigin="anonymous"
+/>
+<link
+rel="stylesheet"
+href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+crossorigin="anonymous"
+/>
+{% endblock %}  
+{% block content %}
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a href=# class="navbar-brand">Hotel<b>Ace</b></a>  	
+  <div class="container-fluid">
+    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navbarCollapse" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="nav-item">
+          <a href="{{ url_for('home') }}" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('guest') }}" class="nav-link">Guest</a>
+        </li>
+        <li class="nav-item active">
+          <a href="{{ url_for('employee') }}" class="nav-link">Employee</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="buttons">    
+  <a href="{{ url_for('create_information') }}">
+    <button class="button button4">Create reservation</button>
+  </a>
+</div>
+<table class="table table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Customer id</th>
+      <th scope="col">Room id</th>
+      <th scope="col">Start-time</th>
+      <th scope="col">End-time</th>
+      <th scope="col">Adults</th>
+      <th scope="col">Children</th>
+      <th scope="col">Parking space</th>
+      <th scope="col">Breakfast included</th>
+      <th scope="col">Swimming pool</th>
+      <th scope="col">Wellness & Spa</th>
+      <th scope="col">Requests</th>
+      <th scope="col">Requirement</th>
+      <th scope="col">Booking status</th>
+      <th scope="col">Time stamp</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in information %}
+      <tr>
+        <td>{{ i.id }}</td>
+        <td>{{ i.id_customer }}</td>
+        <td>{{ i.id_room }}</td>
+        <td>{{ i.start_time }}</td>
+        <td>{{ i.end_time }}</td>
+        <td>{{ i.adults }}</td>
+        <td>{{ i.children }}</td>
+        <td>{{ i.parking_space }}</td>
+        <td>{{ i.breakfast_included }}</td>
+        <td>{{ i.swimming_pool}}</td>
+        <td>{{ i.wellness_spa }}</td>
+        <td>{{ i.requests }}</td>
+        <td>{{ i.requirement }}</td>
+        <td>{{ i.booking_status }}</td>
+        <td>{{ i.time_stamp}}</td>
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+<span class="buttonPrevious">
+  <a href="{{url_for('read_information')}}" class="previous">&laquo; Information</a>
+</span>>
+{% endblock %}

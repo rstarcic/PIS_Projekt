@@ -1,0 +1,93 @@
+{% extends "home.html" %}
+{% block head %}
+  <link 
+  rel="stylesheet" 
+  href="{{ url_for('static', filename='Guest_information.css') }}" 
+  />
+  <link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+  crossorigin="anonymous"
+/>
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+  crossorigin="anonymous"
+/>
+{% endblock %}
+{% block content %}
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a href=# class="navbar-brand">Hotel<b>Ace</b></a>  	
+  <div class="container-fluid">
+    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navbarCollapse" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="nav-item">
+          <a href="{{ url_for('home') }}" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item active">
+          <a href="{{ url_for('guest') }}" class="nav-link">Guest</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('employee') }}" class="nav-link">Employee</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="head">
+  <h4>Fill in personal information form</h4>
+</div>
+<div class="container">
+  <form method="POST" action="http://127.0.0.1:9000/guest/info/" id="Submit">
+
+    <label for="name">Name</label>
+    <input type="name" class="form-control" id="name" placeholder="Bob" name="customer_name" value="{{request.form['customer_name']}}" required>
+        
+    <label for="surname">Surname</label>
+    <input type="surname" class="form-control" id="surname" placeholder="Marley" name="surname" value="{{request.form['surname']}}" required>
+           
+    <label for="email">Email</label>
+    <input type="email" class="form-control" id="email" placeholder="bob.marley@gmail.com" name="email" value="{{request.form['email']}}" required><br>
+
+    <label for="phone">Phone number</label><br>
+    <input type="tel" id="phone" name="phone_number" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="{{request.form['phone_number']}}" required><br>
+        
+    <label for="address">Address</label><br>
+    <input type="street-address" id="address" placeholder="Round Street 123" name="address" value="{{request.form['address']}}" required><br>
+
+    <label for="city">City</label><br>
+    <input type="city" id="city" placeholder="Pula" name="city" value="{{request.form['city']}}" required><br>
+          
+    <label for="postcode">Post code</label><br>
+    <input type="postal-code" id="postcode" placeholder="52100" name="postcode" value="{{request.form['postcode']}}"><br>
+            
+    <label for="countryName">Country name</label><br>
+    <input type="country-name" id="countryName" placeholder="Republic of Croatia" name="country" value="{{request.form['country']}}" required><br>
+         
+    <button onclick="SubmitForm()" class="btn btn-primary btn-lg active" type="submit">Save</button>
+  </form>
+</div>
+  <span class="buttonNext">
+    <a href="{{url_for('guest_booking')}}" class="next">Booking &raquo;</a>
+  </span>
+  <table class="table table-borderless table-dark">
+    <thead class="thead-dark">
+      {% for key, value in request.form.items() %}
+      <tr>
+        <th> {{key}} </th>
+        <td> {{value}} </td>
+      </tr>
+    </thead>
+      {% endfor %}
+  </table>
+  <script>
+    function SubmitForm() {
+      document.getElementById("Submit").submit();
+    }
+  </script>
+  {% endblock %}
+

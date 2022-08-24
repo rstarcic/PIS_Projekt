@@ -1,0 +1,92 @@
+{% extends "home.html" %}
+{% block head %}
+<link 
+  rel="stylesheet" 
+  type="text/css" 
+  href="{{ url_for('static', filename='Read_information.css') }}"
+/>
+<link
+rel="stylesheet"
+href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+crossorigin="anonymous"
+/>
+<link
+rel="stylesheet"
+href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+crossorigin="anonymous"
+/>
+{% endblock %}  
+{% block content %}
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a href=# class="navbar-brand">Hotel<b>Ace</b></a>  	
+  <div class="container-fluid">
+    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navbarCollapse" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="nav-item">
+          <a href="{{ url_for('home') }}" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('guest') }}" class="nav-link">Guest</a>
+        </li>
+        <li class="nav-item active">
+          <a href="{{ url_for('employee') }}" class="nav-link">Employee</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="buttons">    
+  <a href="{{ url_for('create_information') }}">
+    <button class="button button4">Create reservation</button>
+  </a>
+</div>
+<table class="table table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">id</th> 
+      <th scope="col">Name</th>
+      <th scope="col">Surname</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone number</th>
+      <th scope="col">Address</th>
+      <th scope="col">Postcode</th>
+      <th scope="col">City</th>
+      <th scope="col">Country</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in info %}
+      <tr>
+        <td>{{ i.id }}</td>
+        <td>{{ i.customer_name }}</td>
+        <td>{{ i.surname }}</td>
+        <td>{{ i.email }}</td>
+        <td>{{ i.phone_number }}</td>
+        <td>{{ i.address }}</td>
+        <td>{{ i.postcode }}</td>
+        <td>{{ i.city }}</td>
+        <td>{{ i.country }}</td>
+        <td>
+          <a href="http://127.0.0.1:9000/employee/info/{{i.id}}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Update</a>
+        </td>
+        <td>      
+          <form action="http://127.0.0.1:9000/employee/information/{{i.id}}" method="POST">
+              <input class="btn btn-secondary btn-lg active" role="button" aria-pressed="true" type="submit" value="Delete">
+          </form>
+        </td>
+
+        <!-- <td><a href="http://127.0.0.1:9000/employee/read-info/delete-info/{{i.id}}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Delete</a></td> -->
+      </tr>
+
+      {% endfor %}
+  </tbody>
+</table>
+
+<span class="buttonNext">
+    <a href="{{ url_for('read_booking') }}" class="next round">&raquo; Booking</a>
+  </span>
+{% endblock %}
